@@ -1,0 +1,98 @@
+div#topBar {
+	background: url('topnav_bg.gif') repeat-x;
+	border-bottom-right-radius: 5px;
+	-moz-box-shadow: 0 1px 10px #000;
+	-webkit-box-shadow: 0 1px 10px #000;
+	box-shadow: 0 1px 10px #000;
+	width: 100%;
+}
+
+div#topBar ul {
+	list-style: none;
+	float: left;
+	font-size: 1.2em;
+	width: 100%;
+	margin: 0;
+}
+
+div#topBar ul li.title {
+	color: #fff;
+	font-weight: 700;
+	padding: 10px 25px 10px 20px;
+}
+
+div#topBar ul li.adminName {
+	float: right;
+	color: #fff;
+	background: transparent url('admin.png') no-repeat right center;
+	margin: 0 15px;
+	padding: 10px 20px 10px 0;
+}
+
+div#topBar ul li {
+	float: left;
+	position: relative;
+	margin: 0;
+	padding: 0 15px 0 0;
+}
+
+div#topBar ul li a {
+	color: #fff;
+	display: block;
+	text-decoration: none;
+	float: left;
+	padding: 10px 5px;
+}
+
+div#topBar ul li.logout {
+	float: right;
+	padding: 0px 20px 0px 0px;
+}
+
+div#menu {
+	color: #FFF;
+	background-color: #191919;
+	border-bottom-right-radius: 5px;
+	-moz-box-shadow: 0 1px 10px #000;
+	-webkit-box-shadow: 0 1px 10px #000;
+	box-shadow: 1px 1px 10px #000;
+	width: 200px;
+	float: left;
+	padding: 15px 0px;
+	position: fixed;
+	margin-top: 35px;
+	z-index: 99999;
+}
+
+div#menu ul {
+	list-style: none;
+}
+
+div#menu ul.topnav li a {
+	color: #fff;
+	display: block;
+	text-decoration: none;
+	padding: 10px 20px;
+}
+
+div#menu ul.topnav li a:hover,div#menu ul.topnav li a.active {
+	background-color: #666;
+}
+
+div#menu ul.topnav li.subnav ul li a {
+	padding-left: 30px;
+	background: #333 url('dropdown_linkbg.gif') no-repeat 20px center;
+}
+
+div#menu ul.topnav li.subnav ul li a:hover {
+	background: #222 url('dropdown_linkbg.gif') no-repeat 20px center;
+}
+
+div#menu ul.topnav li.subnav ul {
+	display: none;
+}
+
+div#menu ul.topnav li.subnav ul li {
+	border-top: 1px solid #252525;
+	border-bottom: 1px solid #444;
+}

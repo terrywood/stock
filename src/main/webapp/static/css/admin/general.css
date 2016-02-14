@@ -1,0 +1,257 @@
+* {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	min-width: 1200px
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+table {
+	width: 100%;
+	border: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+table tr td,table tr th {
+	vertical-align: top;
+	text-align: left;
+	padding: 5px;
+}
+
+
+.listview table thead tr th {
+	border-bottom: 1px dotted #CCC;
+}
+
+.listview table tbody tr:nth-child(even) {
+	background-color: #EEEEFF;
+}
+
+/*.listview table tbody tr:hover {
+	background-color: #00FFFF;
+}*/
+
+.listview table tfoot tr td {
+	border-top: 1px dotted #CCC;
+}
+
+.pageDiv {
+	border-top: 1px dotted #CCC;
+	text-align: center;
+	padding: 5px;
+}
+
+input[type=text],input[type=password],textarea,select {
+	width: 450px;
+	padding: 3px 5px;
+	border-radius: 3px;
+	border: 1px #CCC solid;
+}
+
+input[type=file] {
+	width: 450px;
+}
+
+textarea {
+	height: 50px;
+	resize: none;
+}
+
+.button,input[type=button],input[type=submit] {
+	padding: 3px 10px;
+	cursor: pointer;
+	border-radius: 5px;
+	border: 1px solid #CCC;
+	background-color: #EEE;
+	color: #333;
+	text-decoration: none;
+}
+
+.separator {
+	border-top: 1px solid #CCC;
+	margin: 3px 0px;
+}
+
+.largeTitle {
+	font-size: x-large;
+	font-weight: bold;
+	text-shadow: 0.1em 0.1em 0.2em #AAA;
+}
+
+.subTitle {
+	font-size: larger;
+}
+
+.welcomeMsg {
+	text-align: center;
+	font-size: larger;
+	padding: 250px 0px;
+	line-height: 1.5em;
+}
+
+.formRow {
+	clear: both;
+	overflow: auto;
+	padding: 5px 0px;
+}
+
+.formRow .label {
+	width: 200px;
+	float: left;
+	margin-top: 4px;
+	font-weight: bold;
+}
+
+.formRow .field {
+	width: 500px;
+	float: left;
+}
+
+.formRow .field label {
+	margin-right: 10px;
+}
+
+.errorMessage {
+	color: red;
+	font-weight: bold;
+}
+
+#footer {
+	text-align: center;
+	margin: 0px auto;
+	padding: 50px 0px;
+}
+
+#footer span {
+	background: url('../admin/gtLogo.png') no-repeat right center;
+	padding: 10px 150px 5px 0px;
+}
+
+#bodyContainer {
+	min-height: 400px;
+	padding: 20px;
+}
+
+.sectionTitle {
+	font-weight: bolder;
+	font-size: larger;
+	text-shadow: 0.1em 0.1em 0.2em #AAA;
+}
+
+.submenuContent {
+	margin-bottom: 20px;
+}
+
+.icon {
+	display: block;
+	height: 16px;
+	padding-left: 20px;
+}
+
+.folderIcon {
+	background: url("../admin/folder.png") no-repeat;
+}
+
+.fileIcon {
+	background: url("../admin/file.png") no-repeat;
+}
+
+div#paginationDiv {
+	clear: both;
+	text-align: center;
+	padding: 20px 0px 10px;
+}
+
+div#paginationDiv ul {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+div#paginationDiv ul li {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 11px;
+	list-style: none;
+	margin-right: 2px;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+div#paginationDiv ul li a {
+	border: solid 1px #9aafe5;
+	margin-right: 2px;
+	font-size: 11px;
+}
+
+div#paginationDiv ul li.previousOff,div#paginationDiv ul li.nextOff {
+	border: solid 1px #DEDEDE;
+	color: #888888;
+	font-weight: bold;
+	margin-right: 2px;
+	padding: 3px 7px;
+}
+
+div#paginationDiv ul li.next a,div#paginationDiv ul li.previous a {
+	font-weight: bold;
+}
+
+div#paginationDiv ul li.active {
+	background: #2e6ab1;
+	color: #FFFFFF;
+	font-weight: bold;
+	padding: 4px 8px;
+}
+
+div#paginationDiv ul li a:link,div#paginationDiv ul li a:visited {
+	color: #0e509e;
+	padding: 3px 6px;
+	text-decoration: none;
+	display: block;
+}
+
+div#paginationDiv ul li a:hover {
+	border: solid 1px #0e509e;
+}
+
+.pics {
+    clear: both;
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    background-color: #f8f8f8;
+}
+
+.button_row {
+    clear: both;
+}
+.button_row>button {
+    margin-right: 20px;
+}
+.button_row>button:last-child {
+    margin-right: 0;
+}
+
+.pics>p {
+    display: block;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.pics>p>input[type=text],input[type=password],textarea,select {
+    width: 150px;
+    padding: 3px 5px;
+    border-radius: 3px;
+    border: 1px #CCC solid;
+}
