@@ -195,8 +195,8 @@ public abstract class BmfBaseDaoImpl<M> implements BmfBaseDao<M> {
 		Paginator paginator = new Paginator(pageNum, pageSize, totalCount);
 		PageList<M> pageList = new PageList<M>(paginator);
 		if (totalCount != null && totalCount.intValue() > 0) {
-            System.out.println("FtrProduct1 pageNum["+pageNum+"] pageSize["+pageSize+"] ");
-            System.out.println("FtrProduct2 paginator.getOffset()["+paginator.getOffset()+"] totalCount["+totalCount+"]");
+          //  System.out.println("FtrProduct1 pageNum["+pageNum+"] pageSize["+pageSize+"] ");
+         //   System.out.println("FtrProduct2 paginator.getOffset()["+paginator.getOffset()+"] totalCount["+totalCount+"]");
 			List<M> list = this.list(hql, paginator.getOffset(), pageSize, values);
 			pageList.addAll(list);
 		}

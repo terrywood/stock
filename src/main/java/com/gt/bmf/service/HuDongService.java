@@ -8,8 +8,8 @@ import java.text.ParseException;
 import java.util.Map;
 
 public interface HuDongService extends BmfBaseService<HuDong> {
-    public void checkHuDong(String pageNo) throws IOException, InterruptedException, ParseException;
-    public void checkGuDong(String pageNo) throws IOException, InterruptedException, ParseException;
+    public void checkHuDong(Map<String, String> params) throws IOException, InterruptedException, ParseException;
+    public void checkGuDong(Map<String, String> params) throws IOException, InterruptedException, ParseException;
 
     public PageList<HuDong> findPageData(int pageNum, int pageSize, Map<String, String> params);
 

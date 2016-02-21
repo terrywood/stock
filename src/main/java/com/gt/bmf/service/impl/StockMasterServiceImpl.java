@@ -3,9 +3,8 @@ package com.gt.bmf.service.impl;
 import com.gt.bmf.common.page.PageList;
 import com.gt.bmf.dao.BmfBaseDao;
 import com.gt.bmf.dao.StockMasterDao;
-import com.gt.bmf.pojo.StockMaster;
+import com.gt.bmf.pojo.GuDong;
 import com.gt.bmf.service.StockMasterService;
-import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 
 @Service("StockMasterService")
-public class StockMasterServiceImpl extends BmfBaseServiceImpl<StockMaster> implements StockMasterService {
+public class StockMasterServiceImpl extends BmfBaseServiceImpl<GuDong> implements StockMasterService {
     @Value("${gf.cookie}")
     private String gfCookie;
     @Value("${gf.session}")
@@ -35,7 +34,7 @@ public class StockMasterServiceImpl extends BmfBaseServiceImpl<StockMaster> impl
     @Autowired
 	@Qualifier("StockMasterDao")
 	@Override
-	public void setBmfBaseDao(BmfBaseDao<StockMaster> bmfBaseDao) {
+	public void setBmfBaseDao(BmfBaseDao<GuDong> bmfBaseDao) {
 		this.bmfBaseDao = bmfBaseDao;
 		this.stockMasterDao = (StockMasterDao) bmfBaseDao;
 
@@ -90,14 +89,8 @@ public class StockMasterServiceImpl extends BmfBaseServiceImpl<StockMaster> impl
             String  answerDate = tds.get(14).text();
 
 
-            StockMaster obj = new StockMaster();
-            obj.setAnswer(answer);
-            obj.setAnswerDate(sdf.parse(answerDate));
-            obj.setCode(code);
-            obj.setId(Long.valueOf(id));
-            obj.setName(name);
-            obj.setQuestion(question);
-            obj.setQuestionDate(sdf.parse(questionDate));
+            GuDong obj = new GuDong();
+
 /*
             System.out.println(id);
             System.out.println(question);
@@ -113,7 +106,7 @@ public class StockMasterServiceImpl extends BmfBaseServiceImpl<StockMaster> impl
     }
 
     @Override
-    public PageList<StockMaster> findPageData(int pageNum, int pageSize, Map<String, String> params) {
+    public PageList<GuDong> findPageData(int pageNum, int pageSize, Map<String, String> params) {
         return stockMasterDao.findPageData(pageNum, pageSize, params);
     }
 

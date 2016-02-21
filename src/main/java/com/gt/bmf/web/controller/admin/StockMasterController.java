@@ -1,19 +1,14 @@
 package com.gt.bmf.web.controller.admin;
 
-import com.gt.bmf.BmfConstants;
 import com.gt.bmf.common.page.PageList;
-import com.gt.bmf.pojo.StockMaster;
+import com.gt.bmf.pojo.GuDong;
 import com.gt.bmf.service.StockMasterService;
-import com.gt.bmf.util.NUIResponseUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -35,7 +30,7 @@ public class StockMasterController {
                        @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize,
                        @RequestParam Map<String,String> params,HttpServletRequest request) {
         Integer pageNum = offset/pageSize +1;
-        PageList<StockMaster> pageList =  stockMasterService.findPageData(pageNum,pageSize,params);
+        PageList<GuDong> pageList =  stockMasterService.findPageData(pageNum,pageSize,params);
         request.setAttribute("pageList",pageList);
         return "/admin/master/list";
     }

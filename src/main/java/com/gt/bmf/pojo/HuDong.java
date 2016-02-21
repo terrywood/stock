@@ -20,6 +20,10 @@ public class HuDong implements Serializable {
     private String question;
     private Date questionDate;
 
+
+    @org.hibernate.annotations.Type(type = "yes_no")
+    private Boolean isGuDong;
+
     private String answer;
     private Date answerDate;
 
@@ -33,6 +37,13 @@ public class HuDong implements Serializable {
         this.status = status;
     }
 
+    public Boolean getGuDong() {
+        return isGuDong;
+    }
+
+    public void setGuDong(Boolean guDong) {
+        isGuDong = guDong;
+    }
     //private Double price;
 
 

@@ -55,11 +55,12 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
 
 
 
-    public void saveData(Document doc ) throws ParseException {
+    public void saveData(Document doc, Boolean isGuDong) throws ParseException {
         Elements elements = doc.getElementsByClass("req_box2");
         for(Element element : elements) {
-            HuDong obj = new HuDong();
+            HuDong obj = null;
             Elements tds = element.getElementsByTag("td");
+            if(tds.size()==1) break;
             String td1[] = tds.get(1).html().split("<br>");
             String code = td1[1];
             String name = td1[0];
@@ -74,31 +75,34 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
 
             if(StringUtils.contains(href,"&")){
                 id = StringUtils.substringBetween(href,"questionId=","&");
-                Pattern pattern = Pattern.compile("\\d{2,}");
+             /*   Pattern pattern = Pattern.compile("\\d{2,}");
                 Matcher matcher = pattern.matcher(answer);
                 while(matcher.find()){
-                    //System.out.println(  matcher.group());
                     obj.setStatus(BmfConstants.GLOBAL_EDITING);
-                }
+                }*/
             }else{
                 id = href.substring(27);
             }
+            Long _id = Long.valueOf(id);
+            obj = huDongDao.get(_id);
+            if(obj==null){
+                obj  = new HuDong();
+                obj.setGuDong(isGuDong);
+            }else{
 
-
-
-
+            }
             obj.setAnswer(answer);
             obj.setAnswerDate(sdf.parse(answerDate));
             obj.setCode(code);
-            obj.setId(Long.valueOf(id));
+            obj.setId(_id);
             obj.setName(name);
             obj.setQuestion(question);
             obj.setQuestionDate(sdf.parse(questionDate));
 
-            System.out.println(id);
+     /*       System.out.println(id);
             System.out.println(code);
             System.out.println(name);
-            System.out.println("--------------------------------------------");
+            System.out.println("--------------------------------------------");*/
 /*
             System.out.println(id);
             System.out.println(question);
@@ -111,61 +115,76 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
 
         }
     }
-    public void checkHuDong(String pageNo) throws IOException, InterruptedException, ParseException {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE,-100);
-        Document doc = Jsoup.connect("http://ircs.p5w.net/ircs/interaction/moreQuestionForGszz.do")
-                .data("condition.dateFrom", sdf2.format(calendar.getTime()))
-                .data("condition.dateTo", sdf2.format(new Date()))
-                .data("pageNo",pageNo)
+
+
+
+    public Document checkHuDongDocument(Map<String, String> params) throws IOException, InterruptedException, ParseException {
+        return  Jsoup.connect("http://ircs.p5w.net/ircs/interaction/moreQuestionForGszz.do")
+                .data(params)
                 .userAgent("Mozilla")
                 .timeout(9000)
                 .post();
-        saveData(doc);
     }
-/**
- * condition.status:3
- condition.keyWord:股东人数
- condition.stockcode:
- condition.searchType:content
- condition.questionCla:
- condition.questionAtr:
- condition.marketType:
- condition.questioner:
- condition.searchRange:0
- condition.provinceCode:
- condition.plate:
- * **/
-    public void checkGuDong(String pageNo) throws IOException, InterruptedException, ParseException {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE,-100);
-
-        String from = sdf2.format(calendar.getTime());
-        String to = sdf2.format(new Date());
-
-
-
-
-        Document doc = Jsoup.connect("http://ircs.p5w.net/ircs/interaction/queryQuestionByGszz.do")
+    public Document checkGuDongDocument(Map<String, String> params) throws IOException, InterruptedException, ParseException {
+        return  Jsoup.connect("http://ircs.p5w.net/ircs/interaction/queryQuestionByGszz.do")
                 .postDataCharset("UTF-8")
-                .data("condition.dateFrom", from)
-                .data("condition.dateTo",to )
                 .data("condition.status","3")
                 .data("condition.keyWord","股东人数")
                 .data("condition.searchRange","0")
-                .data("pageNo",pageNo)
+                .data(params)
                 .userAgent("Mozilla")
-                .timeout(9000)
+                .timeout(18000)
                 .post();
+    }
+    public void checkHuDong(Map<String, String> params) throws IOException, InterruptedException, ParseException {
+        params.put("pageNo","1");
+        Document doc = checkHuDongDocument(params);
+        int totalPage = getTotalPageNo(doc);
+        if(totalPage>0){
+            saveData(doc, false);
+            for(int i=2;i<totalPage;i++){
+                params.put("pageNo",""+i);
+                System.out.println(params);
+                doc = checkHuDongDocument(params);
+                saveData(doc, false);
+            }
+        }
 
-        //System.out.println(doc.html());
-        saveData(doc);
+
+      //
+    }
+
+    private int getTotalPageNo( Document doc){
+        Elements elements = doc.getElementsByClass("yms_box");
+        String text  = elements.text();
+        System.out.print(text);
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(text);
+        int totalPage = 0;
+        while(matcher.find()){
+            totalPage  = Integer.valueOf(matcher.group());
+        }
+        return  totalPage;
+    }
+    public void checkGuDong(Map<String, String> params) throws IOException, InterruptedException, ParseException {
+        params.put("pageNo","1");
+        System.out.println(params);
+        Document doc = checkGuDongDocument(params);
+        int totalPage = getTotalPageNo(doc);
+        if(totalPage>0){
+            saveData(doc, false);
+            for(int i=2;i<totalPage;i++){
+                params.put("pageNo",""+i);
+                System.out.println(params);
+                doc = checkGuDongDocument(params);
+                saveData(doc, false);
+            }
+        }
+
     }
 
     @Override
     public PageList<HuDong> findPageData(int pageNum, int pageSize, Map<String, String> params) {
         return huDongDao.findPageData(pageNum, pageSize, params);
     }
-
-
 }
