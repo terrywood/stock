@@ -1,6 +1,6 @@
 package com.gt.bmf.web.controller.api;
 
-import com.gt.bmf.service.StockMasterService;
+import com.gt.bmf.service.GuDongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ApiController {
 
     @Autowired
-    StockMasterService gfQueryLogService;
+    GuDongService gfQueryLogService;
 
 
     @RequestMapping("/api/lockBuyAction")

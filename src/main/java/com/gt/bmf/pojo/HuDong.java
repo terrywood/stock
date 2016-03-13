@@ -26,8 +26,27 @@ public class HuDong implements Serializable {
 
     private String answer;
     private Date answerDate;
-
     private String status;
+
+
+    public Integer getMarkCount() {
+        return markCount;
+    }
+
+    public void setMarkCount(Integer markCount) {
+        this.markCount = markCount;
+    }
+
+    public Date getMarkDate() {
+        return markDate;
+    }
+
+    public void setMarkDate(Date markDate) {
+        this.markDate = markDate;
+    }
+
+    private Integer markCount;
+    private Date  markDate;
 
     public String getStatus() {
         return status;

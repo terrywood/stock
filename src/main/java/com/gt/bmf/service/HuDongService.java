@@ -5,6 +5,7 @@ import com.gt.bmf.pojo.HuDong;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Map;
 
 public interface HuDongService extends BmfBaseService<HuDong> {
@@ -13,4 +14,6 @@ public interface HuDongService extends BmfBaseService<HuDong> {
 
     public PageList<HuDong> findPageData(int pageNum, int pageSize, Map<String, String> params);
 
+    void updateBlackGuDong();
+    void deleteHuDongLessDate(Date date);
 }

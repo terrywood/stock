@@ -2,7 +2,7 @@ package com.gt.bmf.web.controller.admin;
 
 import com.gt.bmf.common.page.PageList;
 import com.gt.bmf.pojo.GuDong;
-import com.gt.bmf.service.StockMasterService;
+import com.gt.bmf.service.GuDongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ public class StockMasterController {
     private String jspCommonNuiResponse;
 */
     @Autowired
-    private StockMasterService stockMasterService;
+    private GuDongService stockMasterService;
 
     @RequestMapping("/master/list")
     public String list(@RequestParam(value = "pager.offset", defaultValue = "0") Integer offset,

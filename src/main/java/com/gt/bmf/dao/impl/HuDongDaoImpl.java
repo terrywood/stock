@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,16 +25,26 @@ public class HuDongDaoImpl extends BmfBaseDaoImpl<HuDong> implements HuDongDao {
             hql+=" and code = ?";
             paramList.add(params.get("code").trim());
         }
+        if(StringUtils.isNotBlank(params.get("status"))) {
+            hql+=" and status = ?";
+            paramList.add(params.get("status").trim());
+        }
         if(StringUtils.equals("true",params.get("isGuDong"))) {
             hql+=" and isGuDong = ?";
             paramList.add(true);
         }
         if(StringUtils.isNotBlank(params.get("keyword"))) {
-            hql+=" and question like ?";
+            hql+=" and( question like ? or answer like ?)";
+            paramList.add("%"+params.get("keyword").trim()+"%");
             paramList.add("%"+params.get("keyword").trim()+"%");
         }
         hql+=" order by answerDate desc, id desc";
         return  super.findPageData(hql,pageNum,pageSize,paramList.toArray());
 
+    }
+
+    @Override
+    public void deleteHuDongLessDate(Date date) {
+        super.executeByHQL("delete HuDong where  answerDate < ?",date);
     }
 }

@@ -88,6 +88,7 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
             if(obj==null){
                 obj  = new HuDong();
                 obj.setGuDong(isGuDong);
+                obj.setStatus(BmfConstants.GLOBAL_INVALID);
             }else{
 
             }
@@ -122,7 +123,7 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
         return  Jsoup.connect("http://ircs.p5w.net/ircs/interaction/moreQuestionForGszz.do")
                 .data(params)
                 .userAgent("Mozilla")
-                .timeout(9000)
+                .timeout(90000)
                 .post();
     }
     public Document checkGuDongDocument(Map<String, String> params) throws IOException, InterruptedException, ParseException {
@@ -133,7 +134,7 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
                 .data("condition.searchRange","0")
                 .data(params)
                 .userAgent("Mozilla")
-                .timeout(18000)
+                .timeout(90000)
                 .post();
     }
     public void checkHuDong(Map<String, String> params) throws IOException, InterruptedException, ParseException {
@@ -172,12 +173,12 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
         Document doc = checkGuDongDocument(params);
         int totalPage = getTotalPageNo(doc);
         if(totalPage>0){
-            saveData(doc, false);
+            saveData(doc, true);
             for(int i=2;i<totalPage;i++){
                 params.put("pageNo",""+i);
                 System.out.println(params);
                 doc = checkGuDongDocument(params);
-                saveData(doc, false);
+                saveData(doc, true);
             }
         }
 
@@ -186,5 +187,16 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
     @Override
     public PageList<HuDong> findPageData(int pageNum, int pageSize, Map<String, String> params) {
         return huDongDao.findPageData(pageNum, pageSize, params);
+    }
+
+    @Override
+    public void updateBlackGuDong() {
+        int c = this.huDongDao.executeByHQL("update HuDong set isGuDong= ? where isGuDong =? and status =? and code in (select id from Black)",false,true,"I");
+        System.out.println("updateBlackGuDong count["+c+"]");
+    }
+
+    @Override
+    public void deleteHuDongLessDate(Date date) {
+        huDongDao.deleteHuDongLessDate(date);
     }
 }

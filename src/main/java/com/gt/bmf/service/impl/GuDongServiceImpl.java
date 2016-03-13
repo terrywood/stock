@@ -4,7 +4,7 @@ import com.gt.bmf.common.page.PageList;
 import com.gt.bmf.dao.BmfBaseDao;
 import com.gt.bmf.dao.StockMasterDao;
 import com.gt.bmf.pojo.GuDong;
-import com.gt.bmf.service.StockMasterService;
+import com.gt.bmf.service.GuDongService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,8 +20,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
-@Service("StockMasterService")
-public class StockMasterServiceImpl extends BmfBaseServiceImpl<GuDong> implements StockMasterService {
+@Service("GuDongService")
+public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuDongService {
     @Value("${gf.cookie}")
     private String gfCookie;
     @Value("${gf.session}")
