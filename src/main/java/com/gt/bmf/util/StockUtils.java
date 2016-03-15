@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,6 +15,7 @@ public class StockUtils {
         str = StringUtils.replace(str," ","");
         str = StringUtils.replace(str,"一","1");
         str = StringUtils.replace(str,"二","2");
+        str = StringUtils.replace(str,"两","2");
         str = StringUtils.replace(str,"三","3");
         str = StringUtils.replace(str,"四","4");
         str = StringUtils.replace(str,"五","5");
@@ -21,7 +23,7 @@ public class StockUtils {
         str = StringUtils.replace(str,"七","7");
         str = StringUtils.replace(str,"八","8");
         str = StringUtils.replace(str,"九","9");
-        str = StringUtils.replace(str,"十","10");
+        //str = StringUtils.replace(str,"十","10");
         int renCount=0;
         Pattern pattern3 = Pattern.compile("([0-9]+[.]?)+千+");
         Matcher matcher3 = pattern3.matcher(str);
@@ -69,19 +71,44 @@ public class StockUtils {
         str = StringUtils.replace(str,"2月中旬","2月15日");
         str = StringUtils.replace(str,"一月29日","1月29日");
         str = StringUtils.replace(str,"1月末","1月29日");
-        Pattern pattern = Pattern.compile("([0-9]{1,}月[0-9]{1,}日)");
-        Matcher matcher = pattern.matcher(str);
-        String value  = "";
-        while(matcher.find()){
-            value = (matcher.group());
+        str = StringUtils.replace(str,"2.29","2月29日");
+
+        {
+            Pattern pattern = Pattern.compile("[0-9]{4}年[0-9]{1,}月[0-9]{1,}日");
+            Matcher matcher = pattern.matcher(str);
+            String value = "";
+
+            while (matcher.find()) {
+                value = (matcher.group());
+            }
+           //System.out.println("value:"+value);
+            if (StringUtils.isNotBlank(value)) {
+                String patterns[] = new String[]{"yyyy年M月d日"};
+                try {
+                    Date date = (DateUtils.parseDate(value, patterns));
+                    return date;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        if(StringUtils.isNotBlank(value)){
-            String patterns[] = new String[]{"M月d日"};
-            try {
-                Date date = ( DateUtils.parseDate(value ,patterns ));
-                return  DateUtils.setYears(date,2016);
-            } catch (ParseException e) {
-                e.printStackTrace();
+
+        {
+            Pattern pattern = Pattern.compile("([0-9]{1,}月[0-9]{1,}日)");
+            Matcher matcher = pattern.matcher(str);
+            String value = "";
+            while (matcher.find()) {
+                value = (matcher.group());
+            }
+            //System.out.println("value222:"+value);
+            if (StringUtils.isNotBlank(value)) {
+                String patterns[] = new String[]{"M月d日"};
+                try {
+                    Date date = (DateUtils.parseDate(value, patterns));
+                    return DateUtils.setYears(date, 2016);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return null;
@@ -90,10 +117,10 @@ public class StockUtils {
 
 
     public static void main(String[] args) {
-        String str ="请问，截至2 月十五日，公司的股东人数是多少？谢谢" ;
-        str = StringUtils.replace(str," ","");
-        str = StringUtils.replace(str,"2月十五日","2月15日");
-        System.out.println("：" + getGuDongDate(str));
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        String str ="截至2016年2月15日，公司股东总户数约为两万一千余户。" ;
+       // System.out.println("：" + sdf2.format(getGuDongDate(str)));
+        System.out.println("：" + (getGuDongRenShu(str)));
     }
 
 }

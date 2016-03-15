@@ -15,16 +15,41 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 public class GuDong implements Serializable {
     private static final long serialVersionUID = -1686320397097241613L;
+
+
     @Id
     @Column(name = "id", unique = true, nullable = false)
+    private String id;
     private String code;
     private String name;
-    private Date date1;
-    private Date date2;
-    private Date date3;
-    private Double price1;
-    private Double price2;
-    private Double price3;
+    private Date date;
+    private Double price;
+    private Double volume;
+    private Integer markCount;
+
+    public Double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Double volume) {
+        this.volume = volume;
+    }
+
+    public Integer getMarkCount() {
+        return markCount;
+    }
+
+    public void setMarkCount(Integer markCount) {
+        this.markCount = markCount;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;
@@ -42,51 +67,19 @@ public class GuDong implements Serializable {
         this.name = name;
     }
 
-    public Date getDate1() {
-        return date1;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDate1(Date date1) {
-        this.date1 = date1;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public Date getDate2() {
-        return date2;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setDate2(Date date2) {
-        this.date2 = date2;
-    }
-
-    public Date getDate3() {
-        return date3;
-    }
-
-    public void setDate3(Date date3) {
-        this.date3 = date3;
-    }
-
-    public Double getPrice1() {
-        return price1;
-    }
-
-    public void setPrice1(Double price1) {
-        this.price1 = price1;
-    }
-
-    public Double getPrice2() {
-        return price2;
-    }
-
-    public void setPrice2(Double price2) {
-        this.price2 = price2;
-    }
-
-    public Double getPrice3() {
-        return price3;
-    }
-
-    public void setPrice3(Double price3) {
-        this.price3 = price3;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

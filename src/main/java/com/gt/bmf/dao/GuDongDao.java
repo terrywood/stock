@@ -5,6 +5,6 @@ import com.gt.bmf.pojo.GuDong;
 
 import java.util.Map;
 
-public interface StockMasterDao extends BmfBaseDao<GuDong> {
+public interface GuDongDao extends BmfBaseDao<GuDong> {
     public PageList<GuDong> findPageData(int pageNum, int pageSize, Map<String,String> params);
 }

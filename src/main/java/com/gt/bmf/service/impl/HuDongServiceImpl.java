@@ -99,18 +99,6 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
             obj.setName(name);
             obj.setQuestion(question);
             obj.setQuestionDate(sdf.parse(questionDate));
-
-     /*       System.out.println(id);
-            System.out.println(code);
-            System.out.println(name);
-            System.out.println("--------------------------------------------");*/
-/*
-            System.out.println(id);
-            System.out.println(question);
-            System.out.println(questionDate);
-            System.out.println(answer);
-            System.out.println(answerDate);
-          */
             huDongDao.merge(obj);
 
 
