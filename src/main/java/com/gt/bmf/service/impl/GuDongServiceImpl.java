@@ -18,6 +18,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 
 @Service("GuDongService")
@@ -50,6 +51,11 @@ public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuD
     @Override
     public PageList<GuDong> findPageData(int pageNum, int pageSize, Map<String, String> params) {
         return guDongDaoDao.findPageData(pageNum, pageSize, params);
+    }
+
+    @Override
+    public List findDisGuDong() {
+        return guDongDaoDao.find("from GuDong group by code");
     }
 
 

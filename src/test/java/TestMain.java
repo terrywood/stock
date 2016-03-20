@@ -37,7 +37,7 @@ public class TestMain {
         map.put("Status", "0");
         System.out.println(JSONUtils.toJSONString(map));*/
 
-        Document doc = Jsoup.connect("http://www.djstg.com/stock/000100/xml/gdyj/gdhs.xml")
+      /*  Document doc = Jsoup.connect("http://www.djstg.com/stock/000100/xml/gdyj/gdhs.xml")
                 .userAgent("Mozilla")
                 .timeout(3000)
                 .get();
@@ -45,11 +45,15 @@ public class TestMain {
 
         Elements elements = doc.getElementsByTag("dataset");
         Elements set =  elements.get(0).getElementsByTag("set");
+        Elements set2 =  elements.get(1).getElementsByTag("set");
         for(int i=0;i<set.size();i++){
             Element ele  =set.get(i);
-            System.out.println(ele.attr("value"));
+            Element ele2  =set2.get(i);
+            int markCount  = Integer.valueOf(ele.attr("value"));
+
             System.out.println(ele.attr("tooltext"));
-        }
+            System.out.println(ele2.attr("value"));
+        }*/
 
 
        // System.out.println(elements.get(0).html());

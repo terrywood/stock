@@ -82,4 +82,17 @@ public class GuDong implements Serializable {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "GuDong{" +
+                "id='" + id + '\'' +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", price=" + price +
+                ", volume=" + volume +
+                ", markCount=" + markCount +
+                '}';
+    }
 }

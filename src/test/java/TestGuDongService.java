@@ -6,12 +6,18 @@ import com.gt.bmf.pojo.HuDong;
 import com.gt.bmf.service.GuDongService;
 import com.gt.bmf.service.HuDongService;
 import com.gt.bmf.util.StockUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.util.JavaScriptUtils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -151,11 +157,62 @@ public class TestGuDongService {
             //guDongService.merge(entity);
         }
     }
+
+    public static void geDistGuDong() throws Exception {
+       List<GuDong> list = guDongService.findDisGuDong();
+        for(GuDong obj: list){
+            saveGuDong(obj.getCode(),obj.getName());
+        }
+    }
+    public static void saveGuDong(String code,String name)  {
+
+        Document doc = null;
+        try {
+            doc = Jsoup.connect("http://www.djstg.com/stock/"+code+"/xml/gdyj/gdhs.xml")
+                    .userAgent("Mozilla")
+                    .timeout(3000)
+                    .get();
+            Elements elements = doc.getElementsByTag("dataset");
+            Elements set =  elements.get(0).getElementsByTag("set");
+            Elements set2 =  elements.get(1).getElementsByTag("set");
+            List<GuDong> array = new ArrayList<GuDong>();
+            for(int i=0;i<set.size();i++){
+                Element ele  =set.get(i);
+                Element ele2  =set2.get(i);
+                int count  = Integer.valueOf(ele.attr("value"));
+                String _date = ele.attr("tooltext").split(",")[1];
+                Date date = sdf.parse(_date);
+                Double price  =Double .valueOf(ele2.attr("value"));
+                String id = StringUtils.remove(_date,"-") +code;
+                GuDong  entity = guDongService.get(id);
+                if(entity ==null) {
+                    entity  = new GuDong();
+                }
+               // GuDong entity  = new GuDong();
+                entity.setName(name);
+                entity.setCode(code);
+                entity.setDate(date);
+                entity.setMarkCount(count);
+                entity.setId(id);
+                entity.setPrice(price);
+                //System.out.println(entity);
+                // entity.setVolume(0d);
+                array.add(entity);
+            }
+            guDongService.saveOrUpdateAll(array);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static void main(String[] args) throws Exception {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("/spring/bmf_applicationContext.xml");
         service = (HuDongService) ctx.getBean("HuDongService");
         guDongService = (GuDongService) ctx.getBean("GuDongService");
-        savePrice();
+        geDistGuDong();
+       // savePrice();
+
        // save();
 
         /*String[] strs = new String[]{"20160301","20160229","20160313"};
