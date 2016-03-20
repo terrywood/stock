@@ -67,6 +67,8 @@ public class StockUtils {
     }
     public static Date getGuDongDate(String str){
         str = StringUtils.replace(str," ","");
+        str = StringUtils.replace(str,"十五","15");
+        str = StringUtils.replace(str,"3月中旬","3月15日");
         str = StringUtils.replace(str,"2月十五日","2月15日");
         str = StringUtils.replace(str,"2月中旬","2月15日");
         str = StringUtils.replace(str,"一月29日","1月29日");

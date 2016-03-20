@@ -29,8 +29,14 @@ public class TestHuDongService {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("/spring/bmf_applicationContext.xml");
         service = (HuDongService) ctx.getBean("HuDongService");
        // deleteOldData();
-       //get3PartData();
+
+
+       //step 1
+        //get3PartData();
+        //step 2
         markData();
+
+        //step 3 open browser validate date by myself
         System.exit(0);
 	}
 

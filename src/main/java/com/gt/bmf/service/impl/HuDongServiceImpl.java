@@ -89,19 +89,15 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
                 obj  = new HuDong();
                 obj.setGuDong(isGuDong);
                 obj.setStatus(BmfConstants.GLOBAL_INVALID);
-            }else{
-
+                obj.setAnswer(answer);
+                obj.setAnswerDate(sdf.parse(answerDate));
+                obj.setCode(code);
+                obj.setId(_id);
+                obj.setName(name);
+                obj.setQuestion(question);
+                obj.setQuestionDate(sdf.parse(questionDate));
+                huDongDao.save(obj);
             }
-            obj.setAnswer(answer);
-            obj.setAnswerDate(sdf.parse(answerDate));
-            obj.setCode(code);
-            obj.setId(_id);
-            obj.setName(name);
-            obj.setQuestion(question);
-            obj.setQuestionDate(sdf.parse(questionDate));
-            huDongDao.merge(obj);
-
-
         }
     }
 

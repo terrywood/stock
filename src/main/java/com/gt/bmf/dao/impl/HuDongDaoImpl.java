@@ -29,6 +29,10 @@ public class HuDongDaoImpl extends BmfBaseDaoImpl<HuDong> implements HuDongDao {
             hql+=" and status = ?";
             paramList.add(params.get("status").trim());
         }
+        if(StringUtils.isNotBlank(params.get("statusNot"))) {
+            hql+=" and status != ?";
+            paramList.add(params.get("statusNot").trim());
+        }
         if(StringUtils.equals("true",params.get("isGuDong"))) {
             hql+=" and isGuDong = ?";
             paramList.add(true);

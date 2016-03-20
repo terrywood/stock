@@ -182,7 +182,11 @@ public class TestGuDongService {
                 int count  = Integer.valueOf(ele.attr("value"));
                 String _date = ele.attr("tooltext").split(",")[1];
                 Date date = sdf.parse(_date);
-                Double price  =Double .valueOf(ele2.attr("value"));
+                String value  = ele2.attr("value");
+                Double price =0d;
+                if(StringUtils.isNotBlank(value)){
+                    price  =Double .valueOf(value);
+                }
                 String id = StringUtils.remove(_date,"-") +code;
                 GuDong  entity = guDongService.get(id);
                 if(entity ==null) {
@@ -201,6 +205,7 @@ public class TestGuDongService {
             }
             guDongService.saveOrUpdateAll(array);
         } catch (Exception e) {
+            System.out.println("error code["+code+"]");
             e.printStackTrace();
         }
 
@@ -210,24 +215,16 @@ public class TestGuDongService {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("/spring/bmf_applicationContext.xml");
         service = (HuDongService) ctx.getBean("HuDongService");
         guDongService = (GuDongService) ctx.getBean("GuDongService");
-        geDistGuDong();
-       // savePrice();
-
+        //step 4, save data to gu dong table
        // save();
+        //step 5 get gu dong  data price .maybe skip
+      //  savePrice();
+        //step 6 get 3part data
+     //   geDistGuDong();
 
-        /*String[] strs = new String[]{"20160301","20160229","20160313"};
-        for(String str :strs){
-            Date date =sdf2.parse(str);
-            Calendar calendar = Calendar.getInstance();calendar.setTime(date);
-            int i  = calendar.get(Calendar.DAY_OF_WEEK);
-            System.out.println(i);
-        }*/
 
-       //
 
-       /* int count =  StockUtils.getGuDongRenShu("尊敬的投资者：您好！截至12月31日，公司的股东总户数请您届时留意《205年年度报告》，感谢您的支持与关注");
-        System.out.println(count);
-       */
+        guDongService.findByGroup();
         System.exit(0);
 	}
 

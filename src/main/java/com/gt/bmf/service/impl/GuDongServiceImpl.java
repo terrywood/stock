@@ -58,5 +58,8 @@ public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuD
         return guDongDaoDao.find("from GuDong group by code");
     }
 
+    public  List findByGroup(){
 
+        return  guDongDaoDao.findByGroup();
+    }
 }
