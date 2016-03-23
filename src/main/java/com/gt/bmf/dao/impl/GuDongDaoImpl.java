@@ -41,9 +41,6 @@ public class GuDongDaoImpl extends BmfBaseDaoImpl<GuDong> implements GuDongDao {
         SQLQuery query = getSession().createSQLQuery(sql);
         //query.addEntity(StockGroup.class);
         List<Object[]> list = query.list();
-        for(Object[] obj : list){
-            System.out.println(obj[1]);
-        }
-        return null;
+        return list;
     }
 }

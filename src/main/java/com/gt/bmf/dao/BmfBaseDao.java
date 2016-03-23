@@ -3,7 +3,10 @@ package com.gt.bmf.dao;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+
+import com.gt.bmf.pojo.Ranking;
 import org.hibernate.type.Type;
 
 import com.gt.bmf.common.page.PageList;

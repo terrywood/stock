@@ -1,23 +1,18 @@
-import com.alibaba.druid.support.json.JSONUtils;
 import com.gt.bmf.BmfConstants;
 import com.gt.bmf.common.page.PageList;
 import com.gt.bmf.pojo.GuDong;
 import com.gt.bmf.pojo.HuDong;
 import com.gt.bmf.service.GuDongService;
 import com.gt.bmf.service.HuDongService;
-import com.gt.bmf.util.StockUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.web.util.JavaScriptUtils;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -59,7 +54,7 @@ public class TestGuDongService {
             String httpUrl = "http://apis.baidu.com/tehir/stockassistant/hist_date";
             String httpArg = "date="+sdf.format(date)+"&code="+obj.getCode();
             String jsonResult = request(httpUrl, httpArg);
-            //  System.out.println(jsonResult);
+              System.out.println(jsonResult);
             Map<String,Object> map =  objectMapper.readValue(jsonResult,Map.class);
             List list =  (List)map.get("rows");
             if(list.size() > 0){
@@ -83,7 +78,7 @@ public class TestGuDongService {
 
 
     public static String request(String httpUrl, String httpArg) {
-        System.out.println("httpArg["+httpArg+"]");
+       // System.out.println("httpArg["+httpArg+"]");
         BufferedReader reader = null;
         String result = null;
         StringBuffer sbf = new StringBuffer();
@@ -218,13 +213,13 @@ public class TestGuDongService {
         //step 4, save data to gu dong table
        // save();
         //step 5 get gu dong  data price .maybe skip
-      //  savePrice();
+       savePrice();
         //step 6 get 3part data
      //   geDistGuDong();
 
 
 
-        guDongService.findByGroup();
+     //   guDongService.saveRandingDataByGroup();
         System.exit(0);
 	}
 

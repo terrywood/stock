@@ -20,6 +20,52 @@ public class Ranking implements Serializable {
     private Double price1;
     private Double price2;
     private Double price3;
+    private Double count1;
+    private Double count2;
+    private Double count3;
+
+    private Double change1;
+    private Double change2;
+
+    public Double getChange1() {
+        return change1;
+    }
+
+    public void setChange1(Double change1) {
+        this.change1 = change1;
+    }
+
+    public Double getChange2() {
+        return change2;
+    }
+
+    public void setChange2(Double change2) {
+        this.change2 = change2;
+    }
+
+    public Double getCount1() {
+        return count1;
+    }
+
+    public void setCount1(Double count1) {
+        this.count1 = count1;
+    }
+
+    public Double getCount2() {
+        return count2;
+    }
+
+    public void setCount2(Double count2) {
+        this.count2 = count2;
+    }
+
+    public Double getCount3() {
+        return count3;
+    }
+
+    public void setCount3(Double count3) {
+        this.count3 = count3;
+    }
 
     public String getCode() {
         return code;
