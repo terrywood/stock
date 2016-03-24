@@ -8,8 +8,7 @@
 
 <html>
 <head>
-    <meta url="">
-    <meta http-equiv="refresh"content="3;url=${pageContext.request.contextPath}/admin/orderList.do">
+    <meta http-equiv="refresh"content="0;url=${pageContext.request.contextPath}/admin/ranking/list.do">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin/general.css" />
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin/menu/menu.css" />

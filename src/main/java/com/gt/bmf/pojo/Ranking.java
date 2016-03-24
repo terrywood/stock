@@ -13,6 +13,7 @@ public class Ranking implements Serializable {
     @Id
     @Column(name = "id", unique = true, nullable = false)
     private String code;
+
     private String name;
     private Date date1;
     private Date date2;

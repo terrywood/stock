@@ -58,7 +58,7 @@ public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuD
         return guDongDaoDao.find("from GuDong group by code");
     }
 
-    public  List saveRandingDataByGroup(){
+    public void saveRandingDataByGroup(){
         List<Object[]> list = guDongDaoDao.findByGroup();
         List<Ranking> rankingList = new ArrayList<>();
         for(Object[] obj : list){
@@ -112,7 +112,12 @@ public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuD
             }
             //rankingDao.saveOrUpdate(ranking);
         }
+        rankingDao.executeByHQL("delete from Ranking");
         rankingDao.saveOrUpdateAll(rankingList);
-        return null;
+    }
+
+    @Override
+    public void deleteByPK(String id) {
+        guDongDaoDao.executeByHQL("delete from GuDong where id=?",id);
     }
 }

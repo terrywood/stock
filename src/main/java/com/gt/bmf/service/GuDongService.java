@@ -10,5 +10,7 @@ public interface GuDongService extends BmfBaseService<GuDong> {
 
     public PageList<GuDong> findPageData(int pageNum, int pageSize, Map<String,String> params);
     public List findDisGuDong ();
-    public  List saveRandingDataByGroup();
+    public void saveRandingDataByGroup();
+
+    void deleteByPK(String id);
 }
