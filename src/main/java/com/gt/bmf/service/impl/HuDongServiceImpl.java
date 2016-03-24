@@ -6,35 +6,30 @@ import com.gt.bmf.dao.BmfBaseDao;
 import com.gt.bmf.dao.HuDongDao;
 import com.gt.bmf.pojo.HuDong;
 import com.gt.bmf.service.HuDongService;
+import com.gt.bmf.util.StockUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service("HuDongService")
 public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuDongService {
-    @Value("${gf.cookie}")
-    private String gfCookie;
-    @Value("${gf.session}")
-    private String gfSession;
 	private HuDongDao huDongDao;
-
-
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     private static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -52,7 +47,52 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
 
     }
 
+    public  void updateData() throws ParseException, IOException, InterruptedException {
+        Map<String,String> params  = new HashMap<String, String>();
+        params.put("isGuDong","true");
+        params.put("status",BmfConstants.GLOBAL_INVALID);
+        PageList<HuDong> pageList = findPageData(1,5000,params);
+        for(HuDong obj : pageList.getData()){
 
+            int count =  StockUtils.getGuDongRenShu(obj.getAnswer());
+            if(count <=100 || count==2015|| count==2016|| count==2014){
+                continue;
+            }
+
+            Date date =   StockUtils.getGuDongDate(obj.getAnswer());
+            if(date==null){
+                date =   StockUtils.getGuDongDate(obj.getQuestion());
+            }
+            if(date==null){
+                continue;
+            }
+            if(date.after(new Date())){
+                date = DateUtils.addYears(date,-1);
+            }
+            //System.out.println("code["+obj.getCode()+"] Ren Shu["+count+"] date["+date+"]");
+
+            obj.setMarkCount(count);
+            obj.setMarkDate(date);
+            obj.setStatus(BmfConstants.GLOBAL_VALID);
+            update(obj);
+
+        }
+    }
+
+
+    public  void checkPartData() throws ParseException, IOException, InterruptedException {
+        Date startDate = sdf2.parse("2016-03-19");
+        while (startDate.before(new Date())){
+            Date endDate  = DateUtils.addDays(startDate,1);
+            Map<String ,String> map = new HashMap<String,String>();
+            map.put("condition.dateFrom",sdf2.format(startDate));
+            map.put("condition.dateTo",sdf2.format(endDate));
+            checkGuDong(map);
+            // service.checkHuDong(map);
+            startDate = DateUtils.addDays(endDate,1);;
+        }
+        updateData();
+    }
 
 
     public void saveData(Document doc, Boolean isGuDong) throws ParseException {

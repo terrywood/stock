@@ -24,7 +24,7 @@ div#topBar ul li.title {
 div#topBar ul li.adminName {
 	float: right;
 	color: #fff;
-	background: transparent url('admin.png') no-repeat right center;
+	/*background: transparent url('admin.png') no-repeat right center;*/
 	margin: 0 15px;
 	padding: 10px 20px 10px 0;
 }

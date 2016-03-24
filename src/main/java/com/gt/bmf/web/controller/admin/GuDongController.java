@@ -2,9 +2,7 @@ package com.gt.bmf.web.controller.admin;
 
 import com.gt.bmf.common.page.PageList;
 import com.gt.bmf.pojo.GuDong;
-import com.gt.bmf.pojo.Ranking;
 import com.gt.bmf.service.GuDongService;
-import com.gt.bmf.service.RankingService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,11 +72,15 @@ public class GuDongController {
     @RequestMapping("/guDong/gender")
     public String gender() throws ParseException {
         guDongService.saveRandingDataByGroup();
-        return "redirect:list.do";
+        return "redirect:stock/admin/ranking/list.do";
+    }
+    @RequestMapping("/guDong/report")
+    public String report( HttpServletRequest request) throws Exception {
+        guDongService.saveData();
+        return "redirect:list.do?code=";
     }
     @RequestMapping("/guDong")
-    public String add(
-                         HttpServletRequest request) throws ParseException {
+    public String add( HttpServletRequest request) throws ParseException {
         return detail(request,null);
     }
 /*
