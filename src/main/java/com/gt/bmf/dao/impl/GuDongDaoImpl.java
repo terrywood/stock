@@ -37,7 +37,7 @@ public class GuDongDaoImpl extends BmfBaseDaoImpl<GuDong> implements GuDongDao {
 
     @Override
     public List findByGroup() {
-        String sql ="select  code, group_concat(date) as dd ,group_concat(mark_count) as cc from gu_dong where date>= date_format('2015-12-31','%Y%m%d') group by code";
+        String sql ="select  code, group_concat(date) as dd ,group_concat(mark_count) as cc,name from gu_dong where date>= date_format('2015-12-31','%Y%m%d') group by code";
         SQLQuery query = getSession().createSQLQuery(sql);
         //query.addEntity(StockGroup.class);
         List<Object[]> list = query.list();

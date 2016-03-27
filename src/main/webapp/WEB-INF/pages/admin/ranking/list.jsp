@@ -52,7 +52,11 @@
         <tbody>
         <c:forEach var="obj" items="${pageList.data}" varStatus="vs">
             <tr>
-                <td><a href="${pageContext.request.contextPath}/admin/guDong/list.do?code=${obj.code}">${obj.code}</a></td>
+                <td>
+                    <a href="${pageContext.request.contextPath}/admin/guDong/list.do?code=${obj.code}">
+                ${obj.code}</a>
+                <br/>${obj.name}
+                </td>
                 <td  align="center" valign="middle"><fmt:formatDate value="${obj.date3}" pattern="yyyy-MM-dd"/>
                     <br/><fmt:formatNumber value="${obj.count3}" type="number" /></td>
                 <td  align="center" valign="middle"><fmt:formatDate value="${obj.date2}" pattern="yyyy-MM-dd"/>

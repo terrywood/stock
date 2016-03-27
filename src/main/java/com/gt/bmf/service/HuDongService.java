@@ -16,4 +16,6 @@ public interface HuDongService extends BmfBaseService<HuDong> {
 
     void updateBlackGuDong();
     void deleteHuDongLessDate(Date date);
+
+    void updateAllStatus();
 }

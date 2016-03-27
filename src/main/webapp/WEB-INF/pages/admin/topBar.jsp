@@ -8,6 +8,7 @@
         <li><a href="${pageContext.request.contextPath}/admin/ranking/list.do">Ranking</a></li>
         <li class="logout"><a href="${pageContext.request.contextPath}/admin/huDong/3part.do">互动平台数据</a></li>
         <li class="logout"><a href="${pageContext.request.contextPath}/admin/guDong/report.do">Analysis</a></li>
+        <li class="logout"><a href="${pageContext.request.contextPath}/admin//guDong/status.do">Update Status</a></li>
         <li class="logout"><a href="${pageContext.request.contextPath}/admin/guDong/gender.do">Export Ranking</a></li>
     </ul>
     <div style="clear: both;">

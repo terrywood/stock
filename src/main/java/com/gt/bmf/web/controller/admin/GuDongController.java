@@ -72,13 +72,14 @@ public class GuDongController {
     @RequestMapping("/guDong/gender")
     public String gender() throws ParseException {
         guDongService.saveRandingDataByGroup();
-        return "redirect:stock/admin/ranking/list.do";
+        return "redirect:/admin/ranking/list.do";
     }
     @RequestMapping("/guDong/report")
     public String report( HttpServletRequest request) throws Exception {
         guDongService.saveData();
         return "redirect:list.do?code=";
     }
+
     @RequestMapping("/guDong")
     public String add( HttpServletRequest request) throws ParseException {
         return detail(request,null);

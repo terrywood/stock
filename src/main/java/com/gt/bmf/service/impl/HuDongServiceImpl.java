@@ -223,4 +223,9 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
     public void deleteHuDongLessDate(Date date) {
         huDongDao.deleteHuDongLessDate(date);
     }
+
+    @Override
+    public void updateAllStatus() {
+        huDongDao.executeByHQL("update HuDong set status=?", BmfConstants.GLOBAL_YES);
+    }
 }

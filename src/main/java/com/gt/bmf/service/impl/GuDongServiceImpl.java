@@ -241,11 +241,14 @@ public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuD
             }
            // System.out.println(cc[0]+","+cc[1]);
             String code = obj[0].toString();
+            String name = obj[3].toString();
             String dd[]  = obj[1].toString().split(",");
             Ranking ranking = new Ranking();
+            ranking.setCode(code);
+            ranking.setName(name);
             if(cc.length==2){
                 try {
-                    ranking.setCode(code);
+
                     ranking.setDate1(simpleDateFormat.parse(dd[1]));
                     ranking.setDate2(simpleDateFormat.parse(dd[0]));
                     Double c1 = Double.valueOf(cc[1]);
@@ -262,7 +265,6 @@ public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuD
             }else{
                 try {
                     int len = cc.length;
-                    ranking.setCode(code);
                     ranking.setDate1(simpleDateFormat.parse(dd[len-1]));
                     ranking.setDate2(simpleDateFormat.parse(dd[len-2]));
                     ranking.setDate3(simpleDateFormat.parse(dd[len-3]));

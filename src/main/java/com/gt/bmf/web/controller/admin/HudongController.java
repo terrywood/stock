@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +36,16 @@ public class HuDongController {
     @Autowired
     private HuDongService huDongService;
 
+    @RequestMapping("/guDong/status")
+    public String status( HttpServletRequest request) throws Exception {
+        huDongService.updateAllStatus();
+        return "redirect:list.do";
+    }
+    @RequestMapping("/huDong/3part")
+    public String part() throws ParseException, InterruptedException, IOException {
+        huDongService.checkPartData();
+        return "redirect:list.do";
+    }
     @RequestMapping("/huDong/list")
     public String list(@RequestParam(value = "pager.offset", defaultValue = "0") Integer offset,
                        @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize,
