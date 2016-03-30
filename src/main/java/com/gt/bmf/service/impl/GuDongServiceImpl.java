@@ -57,10 +57,13 @@ public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuD
     }
 
 
-    public  void savePrice() throws Exception {
+    public  void savePrice(String code) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String,String> params  = new HashMap<String, String>();
         params.put("price","0");
+        if(code!=null){
+            params.put("code",code);
+        }
         PageList<GuDong> pageList = findPageData(1,10000,params);
         for(GuDong obj : pageList.getData()){
             Calendar calendar = Calendar.getInstance();
@@ -96,10 +99,6 @@ public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuD
 
         }
 
-        List<GuDong> list = findDisGuDong();
-        for(GuDong obj: list){
-            saveGuDong(obj.getCode(),obj.getName());
-        }
 
 
     }
@@ -139,6 +138,7 @@ public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuD
 
 
     public void saveData() throws Exception {
+        Map<String,String> disGuDong  = new HashMap<String, String>();
         Map<String,String> params  = new HashMap<String, String>();
         params.put("isGuDong","true");
         params.put("status", BmfConstants.GLOBAL_VALID);
@@ -153,19 +153,29 @@ public class GuDongServiceImpl extends BmfBaseServiceImpl<GuDong> implements GuD
                 continue;
             }
 
-            GuDong  entity  = new GuDong();
             String id = sdf2.format(date)+obj.getCode();
-            entity.setName(obj.getName());
-            entity.setCode(obj.getCode());
-            entity.setDate(date);
-            entity.setMarkCount(count);
-            entity.setId(id);
-            entity.setPrice(0d);
-            entity.setVolume(0d);
-            saveOrUpdate(entity);
+            GuDong  entity  =  get(id);
+            if(entity ==null){
+                entity  = new GuDong();
+                entity.setName(obj.getName());
+                entity.setCode(obj.getCode());
+                entity.setDate(date);
+                entity.setMarkCount(count);
+                entity.setId(id);
+                entity.setPrice(0d);
+                entity.setVolume(0d);
+                save(entity);
+                savePrice(obj.getCode());
+                disGuDong.put(obj.getCode(),obj.getName());
+            }
             //guDongService.merge(entity);
         }
-        savePrice();
+      //  List<GuDong> list = findDisGuDong();
+
+        for(String  code: disGuDong.keySet()){
+            saveGuDong(code,disGuDong.get(code));
+        }
+
     }
 
 /*    public  void geDistGuDong() throws Exception {

@@ -109,17 +109,22 @@
             <th >name</th>
             <th  >Date</th>
             <th  >mark count</th>
+            <c:if test="${not empty param.code}">
+            <th  >环比</th></c:if>
             <th  >price </th>
             <th  >     </th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="obj" items="${pageList.data}" varStatus="vs">
-            <tr>
+
                 <td><a href="${pageContext.request.contextPath}/admin/guDong/list.do?code=${obj.code}">${obj.code}</a></td>
                 <td>${obj.name}</td>
                 <td><fmt:formatDate value="${obj.date}" pattern="yyyy-MM-dd"/> </td>
                 <td><fmt:formatNumber value="${obj.markCount}" /> </td>
+                <c:if test="${not empty param.code}">
+                <td>  <fmt:formatNumber value="${(obj.markCount - pageList.data[vs.count].markCount)/obj.markCount}" type="percent"/> </td>
+                </c:if>
                 <td><fmt:formatNumber value="${obj.price}" /> </td>
                 <td   style="vertical-align:middle;text-align:center ">
                      <a class="button" href="${obj.id}.do">Edit</a>

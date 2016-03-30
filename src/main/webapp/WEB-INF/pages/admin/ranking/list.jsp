@@ -1,3 +1,4 @@
+<%@ page import="org.codehaus.jackson.map.ObjectMapper" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="no-js" lang="en">
@@ -25,6 +26,9 @@
         <input value="Add" class="button" style="cursor: pointer;" type="button" onclick="toAddParent()"/>
     </div>
 </div>--%>
+
+
+
 <div class="list-div">
     <form action="list.do" method="post" id="list_form">
         <div class="pics">
@@ -47,6 +51,7 @@
             <th >date1</th>
             <th >percent</th>
             <th >percent</th>
+            <th >*</th>
         </tr>
         </thead>
         <tbody>
@@ -65,6 +70,10 @@
                     <br/><fmt:formatNumber value="${obj.count1}" type="number" /></td>
                 <td><fmt:formatNumber value="${obj.change1}" type="percent" /></td>
                 <td><fmt:formatNumber value="${obj.change2}" type="percent" /></td>
+                <td>
+                    <a target="_blank" href="http://quote.eastmoney.com/sz${obj.code}.html">East</a>
+                    <a target="_blank" href="chart.do?code=${obj.code}">Chart</a>
+                </td>
            </tr>
         </c:forEach>
         </tbody>

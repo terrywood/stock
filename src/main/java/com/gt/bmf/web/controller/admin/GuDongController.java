@@ -30,7 +30,7 @@ public class GuDongController {
 
     @RequestMapping("/guDong/list")
     public String list(@RequestParam(value = "pager.offset", defaultValue = "0") Integer offset,
-                       @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize,
+                       @RequestParam(value = "pageSize", defaultValue = "50") Integer pageSize,
                        @RequestParam Map<String,String> params,HttpServletRequest request) {
         Integer pageNum = offset/pageSize +1;
         PageList<GuDong> pageList =  guDongService.findPageData(pageNum,pageSize,params);

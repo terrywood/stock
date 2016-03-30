@@ -81,7 +81,7 @@ public class HuDongServiceImpl extends BmfBaseServiceImpl<HuDong> implements HuD
 
 
     public  void checkPartData() throws ParseException, IOException, InterruptedException {
-        Date startDate = sdf2.parse("2016-03-19");
+        Date startDate = DateUtils.addDays(new Date(),-15);
         while (startDate.before(new Date())){
             Date endDate  = DateUtils.addDays(startDate,1);
             Map<String ,String> map = new HashMap<String,String>();
